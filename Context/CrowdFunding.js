@@ -15,9 +15,6 @@ export const CrowdFundingProvider = ({ children }) => {
 
     const createCampaign = async (campaign) => {
         const { title, description, amount, deadline } = campaign;
-        
-        if (typeof window === 'undefined') return;
-        
         const web3Modal = new Wenb3Modal();
         const connection = await web3Modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
@@ -43,8 +40,6 @@ export const CrowdFundingProvider = ({ children }) => {
     };
 
     const getCampaigns = async () => {
-        if (typeof window === 'undefined') return [];
-        
         const provider = new ethers.providers.JsonRpcProvider();
         const contract = fetchContract(provider);
 
@@ -66,8 +61,6 @@ export const CrowdFundingProvider = ({ children }) => {
     };
 
     const getUserCampaigns = async () => {
-        if (typeof window === 'undefined') return [];
-        
         const provider = new ethers.providers.JsonRpcProvider();
         const contract = fetchContract(provider);
 
@@ -99,8 +92,6 @@ export const CrowdFundingProvider = ({ children }) => {
     };
 
     const donate = async (pId, amount) => {
-        if (typeof window === 'undefined') return;
-        
         const web3Modal = new Wenb3Modal();
         const connection = await web3Modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
@@ -118,8 +109,6 @@ export const CrowdFundingProvider = ({ children }) => {
     };
 
     const getDonations = async (pId) => {
-        if (typeof window === 'undefined') return [];
-        
         const provider = new ethers.providers.JsonRpcProvider();
         const contract = fetchContract(provider);
 
@@ -139,11 +128,9 @@ export const CrowdFundingProvider = ({ children }) => {
     };
 
     const checkIfWalletConnected = async () => {
-        if (typeof window === 'undefined') return;
-        
         try {
             if (!window.ethereum)
-                return console.log("Install MetaMask");
+                return setOpenError(true), setError("Install MetaMask");
 
             const accounts = await window.ethereum.request({
                 method: "eth_accounts",
@@ -164,8 +151,6 @@ export const CrowdFundingProvider = ({ children }) => {
     }, []);
 
     const connectWallet = async () => {
-        if (typeof window === 'undefined') return;
-        
         try {
             if (!window.ethereum) return console.log("Install MetaMask");
 

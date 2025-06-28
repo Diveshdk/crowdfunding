@@ -46,7 +46,3 @@ typechain-types
 cache
 artifacts
 
-# IDE
-.vscode
-.idea
-
